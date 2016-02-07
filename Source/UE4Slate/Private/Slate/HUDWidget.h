@@ -8,16 +8,25 @@
 class SHUDWidget : public SCompoundWidget
 {
 public:
-	//!< FArgments はこのマクロで定義される
-	SLATE_BEGIN_ARGS(SHUDWidget) {}
-	//SLATE_ARGUMENT(TYPE, NAME)
+	/**
+	FArgments はこのマクロで定義される
+	FArgments のメンバには先頭に "_" が自動的に付けられる
+	*/
+	SLATE_BEGIN_ARGS(SHUDWidget)
+	//	: _XXXBrush(FCoreStyle::Get().GetDefaultBrush())
+	//	, _SlateHUD(nullptr)
+	{}
+	//SLATE_ATTRIBUTE(const FSlateBrush*, XXXBrush)
 	//SLATE_ARGUMENT(TWeakObjectPtr<class ASlateHUD>, SlateHUD)
+	//SLATE_EVENT(FOnClicked, OnClicked)
+	//SLATE_NAMED_SLOT(FArguments, FSimpleSlot, Content)
 	SLATE_END_ARGS()
 
 	void Construct(const FArguments& InArgs);
 
+	//FReply OnClicked();
+
 protected:
+	//TAttribute<const FSlateBrush*> XXXBrush;
 	//TWeakObjectPtr<class ASlateHUD> SlateHUD;
-	//TWeakObjectPtr<class TYPE> NAME;
-	//TSharedPtr<FSlateDynamicImageBrush> HUDBrush;
 };

@@ -2,4 +2,20 @@
 
 #include "UE4Slate.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, UE4Slate, "UE4Slate" );
+#include "Private/Slate/HUDStyle.h"
+
+class FSlateGameModuleImpl : public FDefaultGameModuleImpl
+{
+	virtual void StartupModule() override
+	{
+		//FSlateStyleRegistry::UnRegisterSlateStyle(FHUDStyle::GetStyleSetName());
+		FHUDStyle::Initialize();
+	}
+
+	virtual void ShutdownModule() override
+	{
+		FHUDStyle::Shutdown();
+	}
+};
+
+IMPLEMENT_PRIMARY_GAME_MODULE( FSlateGameModuleImpl, UE4Slate, "UE4Slate" );
