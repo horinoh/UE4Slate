@@ -22,11 +22,12 @@ public:
 	static const FHUDWidgetStyle& GetDefault();
 
 	UPROPERTY(EditAnywhere, Category = Appearance)
-	FSlateBrush XXXBrush;
+	FSlateBrush CrosshairBrush;
 };
 
 /**
- * 
+ * このクラスを親にして、エディタ上から SlateWidgetStyle を作成
+ * メンバを設定する
  */
 UCLASS()
 class UHUDSlateWidgetStyleContainer : public USlateWidgetStyleContainerBase

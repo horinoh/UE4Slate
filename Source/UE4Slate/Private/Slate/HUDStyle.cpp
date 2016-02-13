@@ -40,9 +40,12 @@ FName FHUDStyle::GetStyleSetName()
 	return StyleSetName;
 }
 
+/**
+参考 FCoreStyle::Create()
+*/
 TSharedRef<class FSlateStyleSet> FHUDStyle::Create()
 {
-	TSharedRef<FSlateStyleSet> StyleRef = FSlateGameResources::New(FHUDStyle::GetStyleSetName(), "/Game/UI/Styles", "/Game/UI/Styles");
+	TSharedRef<FSlateStyleSet> StyleRef = FSlateGameResources::New(FHUDStyle::GetStyleSetName(), "/Game/Slate", "/Game/Slate");
 
 	auto& Style = StyleRef.Get();
 	/**
@@ -65,8 +68,13 @@ TSharedRef<class FSlateStyleSet> FHUDStyle::Create()
 	);
 	*/
 
+	//!< https://wiki.unrealengine.com/First_Person_Shooter_C%2B%2B_Tutorial からクロスヘア画像を持ってきた
+	Style.Set("Crosshair", new FSlateImageBrush(FPaths::GameContentDir() / TEXT("Crosshair_fps_tutorial") / TEXT("crosshair") + TEXT(".TGA"), FVector2D(16, 16)));
+	//!< UnrealEngine\Engine\Content\Slate\Testing\UE4Icon.png をコピーしてきた
+	Style.Set("UE4Icon", new FSlateImageBrush(FPaths::GameContentDir() / TEXT("Slate") / TEXT("UE4Icon") + TEXT(".png"), FVector2D(50, 50)));
+
 	//!< ここでは "HUDWidgetSytle" という名前で自前のスタイルを登録しておく
-	Style.Set("HUDWidgetStyle", FHUDWidgetStyle());
+	//Style.Set("HUDWidgetStyle", FHUDWidgetStyle());
 
 	return StyleRef;
 }

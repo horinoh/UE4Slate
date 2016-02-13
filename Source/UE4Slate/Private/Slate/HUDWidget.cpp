@@ -4,14 +4,13 @@
 #include "HUDWidget.h"
 
 #include "HUDStyle.h"
-#include "HUDSlateWidgetStyleContainer.h"
+//#include "HUDSlateWidgetStyleContainer.h"
 
 #define LOCTEXT_NAMESPACE "Namespace"
 
 //BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SHUDWidget::Construct(const FArguments& InArgs)
 {
-	//HUDBrush = MakeShareable(new FHUDBrush("TextureName", FVector2D(1920, 1080)));
 	//SlateHUD = InArgs._SlateHUD;
 
 	/**
@@ -20,13 +19,8 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 	.TextStyle(YYYStyle::Get(), "XXX")
 	.BorderImage(YYYStyle::Get().GetBrush("XXX"))
 	.ButtonStyle(&YYYStyle::Get().GetWidgetStyle<FButtonStyle>("XXX"))
-	
-	.Image(&FHUDStyle::Get().GetWidgetStyle<FHUDWidgetStyle>("PROPNAME").XXXBrush);
-	*/
 
-	/**
-	FCoreStyle のサンプル
-
+	FCoreStyle のスタイルやブラシ取得例
 	.Style(FCoreStyle::Get(), "Checkbox")
 	.Style(FCoreStyle::Get(), "ToggleButtonCheckbox")
 	.BorderImage(FCoreStyle::Get().GetBrush("NoBorder"))
@@ -34,8 +28,7 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 	*/
 
 	//!< 自前のスタイルは "HUDWidgetStyle" という名前で登録したので、その名前で取得する
-	auto HUDWidgetStyle = FHUDStyle::Get().GetWidgetStyle<FHUDWidgetStyle>("HUDWidgetStyle");
-	HUDWidgetStyle.XXXBrush;
+	//const auto HUDWidgetStyle = FHUDStyle::Get().GetWidgetStyle<FHUDWidgetStyle>("HUDWidgetStyle");
 
 	ChildSlot
 	[
@@ -45,9 +38,11 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 		.VAlign(VAlign_Center)
 		[
 			SNew(SImage)
-			.Image(FCoreStyle::Get().GetDefaultBrush())
-			//.Image(HUDBrush.Get())
-			
+			//.Image(FCoreStyle::Get().GetDefaultBrush())
+			//.Image(FCoreStyle::Get().GetBrush("TrashCan"))
+			//.Image(FHUDStyle::Get().GetBrush("Crosshair"))
+			.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
+
 			//SNew(SBorder)
 			//.BorderImage(FCoreStyle::Get().GetBrush("NoBorder"))
 

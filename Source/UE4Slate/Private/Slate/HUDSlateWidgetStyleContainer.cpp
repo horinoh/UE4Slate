@@ -8,7 +8,7 @@ const FName FHUDWidgetStyle::TypeName(TEXT("FHUDWidgetStyle"));
 void FHUDWidgetStyle::GetResources(TArray<const FSlateBrush*> & OutBrushes) const
 {
 	//!< ƒƒ“ƒo‚Éƒuƒ‰ƒV‚ðŽ‚½‚¹‚½ê‡‚ÍŽÀ‘•‚·‚é
-	OutBrushes.Add(&XXXBrush);
+	OutBrushes.Add(&CrosshairBrush);
 }
 
 const FHUDWidgetStyle& FHUDWidgetStyle::GetDefault()

@@ -27,6 +27,5 @@ public:
 	//FReply OnClicked();
 
 protected:
-	//TAttribute<const FSlateBrush*> XXXBrush;
 	//TWeakObjectPtr<class ASlateHUD> SlateHUD;
 };
