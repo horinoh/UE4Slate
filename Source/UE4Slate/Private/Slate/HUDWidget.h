@@ -24,8 +24,12 @@ public:
 
 	void Construct(const FArguments& InArgs);
 
-	//FReply OnClicked();
+	FReply OnButtonClicked();
+
+	ECheckBoxState IsCheckBoxChecked() const;
+	void OnCheckBoxStateChanged(ECheckBoxState CheckBoxState);
 
 protected:
 	//TWeakObjectPtr<class ASlateHUD> SlateHUD;
+	bool bCheckBoxState;
 };

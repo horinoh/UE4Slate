@@ -48,7 +48,7 @@ TSharedRef<class FSlateStyleSet> FHUDStyle::Create()
 	auto& Style = StyleRef.Get();
 	/**
 	FSlateStyleSet::Set("XXX", スタイル) は第二引数に様々なスタイル(ブラシも可)を取るオーバーロードを持つ
-	ここでスタイルを登録しておく
+	ここでスタイル(ブラシ)を登録しておく
 
 	Style.Set("XXX", FSlateImageBrush(FPaths::GameContentDir() / TEXT("YYY.png"), FVector2D(32, 32)));
 	Style.Set("XXX", FSlateBoxBrush(FPaths::GameContentDir() / TEXT("YYY.png"), FMargin(3.0f / 8.0f)));
