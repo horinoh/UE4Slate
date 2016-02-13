@@ -5,8 +5,6 @@
 
 #include "SlateGameResources.h"
 
-#include "HUDSlateWidgetStyleContainer.h"
-
 /**
 FHUDStyle は ゲームモジュールの StartupModule() でインスタンスを作成しているスタティッククラス
 */
@@ -72,9 +70,6 @@ TSharedRef<class FSlateStyleSet> FHUDStyle::Create()
 	Style.Set("Crosshair", new FSlateImageBrush(FPaths::GameContentDir() / TEXT("Crosshair_fps_tutorial") / TEXT("crosshair") + TEXT(".TGA"), FVector2D(16, 16)));
 	//!< UnrealEngine\Engine\Content\Slate\Testing\UE4Icon.png をコピーしてきた
 	Style.Set("UE4Icon", new FSlateImageBrush(FPaths::GameContentDir() / TEXT("Slate") / TEXT("UE4Icon") + TEXT(".png"), FVector2D(50, 50)));
-
-	//!< ここでは "HUDWidgetSytle" という名前で自前のスタイルを登録しておく
-	//Style.Set("HUDWidgetStyle", FHUDWidgetStyle());
 
 	return StyleRef;
 }

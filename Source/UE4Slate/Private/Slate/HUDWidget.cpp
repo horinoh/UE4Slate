@@ -4,7 +4,6 @@
 #include "HUDWidget.h"
 
 #include "HUDStyle.h"
-//#include "HUDSlateWidgetStyleContainer.h"
 
 #define LOCTEXT_NAMESPACE "Namespace"
 
@@ -26,9 +25,6 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 	.BorderImage(FCoreStyle::Get().GetBrush("NoBorder"))
 	.Image(FCoreStyle::Get().GetDefaultBrush())
 	*/
-
-	//!< 自前のスタイルは "HUDWidgetStyle" という名前で登録したので、その名前で取得する
-	//const auto HUDWidgetStyle = FHUDStyle::Get().GetWidgetStyle<FHUDWidgetStyle>("HUDWidgetStyle");
 
 	ChildSlot
 	[
