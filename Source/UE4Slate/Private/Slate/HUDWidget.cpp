@@ -26,271 +26,186 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 	.Image(FCoreStyle::Get().GetDefaultBrush())
 	*/
 
+	//!< イメージ
+	const auto Image = SNew(SImage)
+		.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
+		.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"));
+	//!< ボーダー
+	const auto Border = SNew(SBorder)
+		.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"));
+	//!< テキストブロック
+	const auto TextBlock = SNew(STextBlock)
+		.Text(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
+		//.Font(FEditorStyle::GetFontStyle(FName("ToolBarButton.LabelFont")))
+		.ToolTipText(LOCTEXT("STextBlock_Key", "STextBlock_Text"));
+	//!< ボタン
+	const auto Button = SNew(SButton)
+		.Text(LOCTEXT("SButton_Key", "SButton_Text"))
+		.ToolTipText(LOCTEXT("SButton_Key", "SButton_Text"))
+		.OnClicked(this, &SHUDWidget::OnButtonClicked);
+	//!< チェックボックス
+	const auto CheckBox = SNew(SCheckBox)
+		.IsChecked(this, &SHUDWidget::IsCheckBoxChecked)
+		.OnCheckStateChanged(this, &SHUDWidget::OnCheckBoxStateChanged)
+		.ToolTipText(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
+		[
+			SNew(STextBlock)
+			.Text(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
+		];
+
+	//!< 水平ボックス
+	const auto HorizontalBox = SNew(SHorizontalBox) + SHorizontalBox::Slot();
+	HorizontalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			TextBlock
+		];
+	HorizontalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			Button
+		];
+	HorizontalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			CheckBox
+		];
+	for (auto i = 0; i < 5; ++i) 
+	{
+		HorizontalBox->AddSlot()
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Center)
+			[
+				Image
+			];
+	}
+
+	//!< 垂直ボックス
+	const auto VerticalBox = SNew(SVerticalBox) + SVerticalBox::Slot();
+	VerticalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			TextBlock
+		];
+	VerticalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			Button
+		];
+	VerticalBox->AddSlot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
+		[
+			CheckBox
+		];
+	for (auto i = 0; i < 5; ++i) 
+	{
+		VerticalBox->AddSlot()
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Center)
+			[
+				Image
+			];
+	}
+
+	//!< グリッドパネル
+	const auto GridPanel = SNew(SUniformGridPanel).SlotPadding(FMargin(5.0f));
+	for (auto i = 0; i < 5; ++i) 
+	{
+		for (auto j = 0; j < 5; ++j) 
+		{
+			GridPanel->AddSlot(i, j)
+				.HAlign(HAlign_Center)
+				.VAlign(VAlign_Center)
+				[
+					Image
+				];
+		}
+	}
+
+	//!< ラップボックス
+	const auto WrapBox = SNew(SWrapBox).PreferredWidth(1000.0f) + SWrapBox::Slot();
+	for (auto i = 0; i < 20; ++i)
+	{
+		WrapBox->AddSlot()
+			.Padding(20)
+			.HAlign(HAlign_Fill)
+			.VAlign(VAlign_Fill)
+			[
+				Image
+			];
+	}
+
 	ChildSlot
 	[
-#if 0
-		SNew(SOverlay)
-		+ SOverlay::Slot()
-		.HAlign(HAlign_Center)
-		.VAlign(VAlign_Center)
-		[
-		]
-#endif
 		//!< スクロールボックス
 		SNew(SScrollBox)		
 		+SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< 水平ボックス
-			SNew(SHorizontalBox)
-			+SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(STextBlock)
-				.Text(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
-				//.Font(FEditorStyle::GetFontStyle(FName("ToolBarButton.LabelFont")))
-				.ToolTipText(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
-			]
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SButton)
-				.Text(LOCTEXT("SButton_Key", "SButton_Text"))
-				.ToolTipText(LOCTEXT("SButton_Key", "SButton_Text"))
-				.OnClicked(this, &SHUDWidget::OnButtonClicked)
-			]
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SCheckBox)
-				.IsChecked(this, &SHUDWidget::IsCheckBoxChecked)
-				.OnCheckStateChanged(this, &SHUDWidget::OnCheckBoxStateChanged)
-				.ToolTipText(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
-				[
-					SNew(STextBlock)
-					.Text(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
-				]
-			]
+			HorizontalBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ボーダー
-			SNew(SBorder)
-			.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"))
+			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< 垂直ボックス
-			SNew(SVerticalBox)
-			+ SVerticalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SVerticalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(STextBlock)
-				.Text(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
-				.ToolTipText(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
-			]
-			+ SVerticalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SButton)
-				.Text(LOCTEXT("SButton_Key", "SButton_Text"))
-				.ToolTipText(LOCTEXT("SButton_Key", "SButton_Text"))
-				.OnClicked(this, &SHUDWidget::OnButtonClicked)
-			]
-			+ SVerticalBox::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SCheckBox)
-				.IsChecked(this, &SHUDWidget::IsCheckBoxChecked)
-				.OnCheckStateChanged(this, &SHUDWidget::OnCheckBoxStateChanged)
-				.ToolTipText(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
-				[
-					SNew(STextBlock)
-					.Text(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
-				]
-			]
+			VerticalBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ボーダー
-			SNew(SBorder)
-			.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"))
+			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< グリッドパネル
-			SNew(SUniformGridPanel)
-			.SlotPadding(FMargin(5.0f))
-			+ SUniformGridPanel::Slot(0, 0)
-			.HAlign(HAlign_Right)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(0, 1)
-			.HAlign(HAlign_Right)
-			.VAlign(VAlign_Center)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(0, 2)
-			.HAlign(HAlign_Right)
-			.VAlign(VAlign_Bottom)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(1, 0)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(1, 1)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(1, 2)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Bottom)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(2, 0)
-			.HAlign(HAlign_Left)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(2, 1)
-			.HAlign(HAlign_Left)
-			.VAlign(VAlign_Center)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SUniformGridPanel::Slot(2, 2)
-			.HAlign(HAlign_Left)
-			.VAlign(VAlign_Bottom)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
+			GridPanel
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ボーダー
-			SNew(SBorder)
-			.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"))
+			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ラップボックス
-			SNew(SWrapBox)
-			.PreferredWidth(300.0f)
-			+ SWrapBox::Slot()
-			.Padding(20)
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SWrapBox::Slot()
-			.Padding(20)
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SWrapBox::Slot()
-			.Padding(20)
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
-			+ SWrapBox::Slot()
-			.Padding(20)
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SImage)
-				.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
-				.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"))
-			]
+			WrapBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ボーダー
-			SNew(SBorder)
-			.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"))
+			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
 			//!< ボーダー
-			SNew(SBorder)
-			.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"))
+			Border
 		]
 	];
 }
