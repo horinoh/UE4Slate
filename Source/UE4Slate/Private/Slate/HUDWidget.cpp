@@ -6,8 +6,8 @@
 #include "HUDStyle.h"
 
 #define LOCTEXT_NAMESPACE "Namespace"
-
 //BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
+
 void SHUDWidget::Construct(const FArguments& InArgs)
 {
 	//SlateHUD = InArgs._SlateHUD;
@@ -235,5 +235,4 @@ void SHUDWidget::OnCheckBoxStateChanged(ECheckBoxState CheckBoxState)
 }
 
 //END_SLATE_FUNCTION_BUILD_OPTIMIZATION
-
 #undef LOCTEXT_NAMESPACE
