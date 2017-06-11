@@ -4,7 +4,7 @@ using UnrealBuildTool;
 
 public class UE4Slate : ModuleRules
 {
-	public UE4Slate(TargetInfo Target)
+	public UE4Slate(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
