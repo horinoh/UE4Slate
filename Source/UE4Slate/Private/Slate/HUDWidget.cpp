@@ -13,37 +13,37 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 	//SlateHUD = InArgs._SlateHUD;
 
 	/**
-	プロパティ名でスタイルを取得してセットする
+	Get style by property name and set
 
 	.TextStyle(YYYStyle::Get(), "XXX")
 	.BorderImage(YYYStyle::Get().GetBrush("XXX"))
 	.ButtonStyle(&YYYStyle::Get().GetWidgetStyle<FButtonStyle>("XXX"))
 
-	FCoreStyle のスタイルやブラシ取得例 (FCoreStyle::Create() で定義されている)
+	Example of getting FCoreStyle's style or brush (Defined in FCoreStyle::Create())
 	.Style(FCoreStyle::Get(), "Checkbox")
 	.Style(FCoreStyle::Get(), "ToggleButtonCheckbox")
 	.BorderImage(FCoreStyle::Get().GetBrush("NoBorder"))
 	.Image(FCoreStyle::Get().GetDefaultBrush())
 	*/
 
-	//!< イメージ
+	//!< Image
 	const auto Image = SNew(SImage)
 		.Image(FHUDStyle::Get().GetBrush("UE4Icon"))
 		.ToolTipText(LOCTEXT("SImage_Key", "SImage_Text"));
-	//!< ボーダー
+	//!< Border
 	const auto Border = SNew(SBorder)
 		.BorderImage(FCoreStyle::Get().GetBrush("ScrollBorder"));
-	//!< テキストブロック
+	//!< TextBlock
 	const auto TextBlock = SNew(STextBlock)
 		.Text(LOCTEXT("STextBlock_Key", "STextBlock_Text"))
 		//.Font(FEditorStyle::GetFontStyle(FName("ToolBarButton.LabelFont")))
 		.ToolTipText(LOCTEXT("STextBlock_Key", "STextBlock_Text"));
-	//!< ボタン
+	//!< Button
 	const auto Button = SNew(SButton)
 		.Text(LOCTEXT("SButton_Key", "SButton_Text"))
 		.ToolTipText(LOCTEXT("SButton_Key", "SButton_Text"))
 		.OnClicked(this, &SHUDWidget::OnButtonClicked);
-	//!< チェックボックス
+	//!< CheckBox
 	const auto CheckBox = SNew(SCheckBox)
 		.IsChecked(this, &SHUDWidget::IsCheckBoxChecked)
 		.OnCheckStateChanged(this, &SHUDWidget::OnCheckBoxStateChanged)
@@ -53,7 +53,7 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 			.Text(LOCTEXT("SCheckBox_Key", "SCheckBox_Text"))
 		];
 
-	//!< 水平ボックス
+	//!< HorizontalBox
 	const auto HorizontalBox = SNew(SHorizontalBox) + SHorizontalBox::Slot();
 	HorizontalBox->AddSlot()
 		.HAlign(HAlign_Fill)
@@ -83,7 +83,7 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 			];
 	}
 
-	//!< 垂直ボックス
+	//!< VerticalBox
 	const auto VerticalBox = SNew(SVerticalBox) + SVerticalBox::Slot();
 	VerticalBox->AddSlot()
 		.HAlign(HAlign_Fill)
@@ -113,7 +113,7 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 			];
 	}
 
-	//!< グリッドパネル
+	//!< GridPanel
 	const auto GridPanel = SNew(SUniformGridPanel).SlotPadding(FMargin(5.0f));
 	for (auto i = 0; i < 5; ++i) 
 	{
@@ -128,7 +128,7 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 		}
 	}
 
-	//!< ラップボックス
+	//!< WrapBox
 	const auto WrapBox = SNew(SWrapBox).PreferredWidth(1000.0f) + SWrapBox::Slot();
 	for (auto i = 0; i < 20; ++i)
 	{
@@ -143,68 +143,59 @@ void SHUDWidget::Construct(const FArguments& InArgs)
 
 	ChildSlot
 	[
-		//!< スクロールボックス
+		//!< ScrollBox
 		SNew(SScrollBox)		
 		+SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< 水平ボックス
 			HorizontalBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ボーダー
 			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< 垂直ボックス
 			VerticalBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ボーダー
 			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< グリッドパネル
 			GridPanel
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ボーダー
 			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ラップボックス
 			WrapBox
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ボーダー
 			Border
 		]
 
 		+ SScrollBox::Slot()
 		.Padding(10, 5)
 		[
-			//!< ボーダー
 			Border
 		]
 	];

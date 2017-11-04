@@ -14,9 +14,9 @@ void ASlateHUD::PostInitializeComponents()
 		const auto GVC = GEngine->GameViewport;
 		if (nullptr != GVC)
 		{
-			//!< この場で SHUDWidget を作成して、メンバ変数 HUDWidget へアサイン
+			//!< Create SHUDWidget and assign to HUDWidget
 			SAssignNew(HUDWidget, SHUDWidget);
-			//!< ビューポートへ追加
+			//!< Add to viewport
 			GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(HUDWidget.ToSharedRef()));
 		}
 	}
